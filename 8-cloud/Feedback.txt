@@ -1,0 +1,224 @@
+Below is a detailed, step-by-step guide to designing and developing a custom application using Salesforce Cloud. This guide builds upon the reference you provided, enhancing it to create a more robust, practical, and exam-ready application called **"Feedback Management App"**. The application will allow users to submit, view, and manage feedback (similar to comments in the reference) with additional functionality for categorization and reporting. Each step is explained thoroughly to ensure clarity and applicability for a practical exam scenario.
+
+---
+
+### Step-by-Step Process to Develop the "Feedback Management App" in Salesforce Cloud
+
+#### Step 1: Log in to Salesforce and Switch to Lightning Experience
+1. **Access Salesforce**:
+   - Navigate to your Salesforce instance (e.g., login.salesforce.com).
+   - Log in with your credentials (username and password).
+2. **Switch to Lightning Experience**:
+   - If you’re in Salesforce Classic, locate the profile menu (top-right corner) and click **Switch to Lightning Experience**.
+   - Alternatively, ensure your instance defaults to Lightning Experience for a modern, user-friendly interface.
+3. **Why Lightning Experience?**:
+   - It provides a dynamic, component-based UI for building apps, essential for modern Salesforce development.
+   - It supports advanced features like Lightning App Builder and mobile responsiveness.
+
+#### Step 2: Create a Custom Object for Feedback
+1. **Navigate to Object Manager**:
+   - Click the **Setup** gear icon (⚙️) in the top-right corner.
+   - In the Quick Find box, type **Object Manager** and select it.
+2. **Create a Custom Object**:
+   - Click **Create** > **Custom Object**.
+   - Fill in the details:
+     - **Label**: Feedback
+     - **Plural Label**: Feedbacks
+     - **Object Name**: Feedback (auto-filled)
+     - **Description**: "Stores user feedback with details like category and description."
+     - **Record Name**: Feedback Name
+     - **Data Type**: Text
+     - **Allow Reports**: Check this box to enable reporting.
+     - **Allow Activities**: Check to enable tasks and events (optional but useful for follow-ups).
+     - **Track Field History**: Check to track changes to feedback records.
+     - **Deployment Status**: Deployed (to make it available to users).
+   - Click **Save**.
+3. **Why This Step?**:
+   - The Feedback object acts as the core data structure, similar to a database table, to store feedback records.
+   - Enabling reports and field history adds analytical and auditing capabilities.
+
+#### Step 3: Add Custom Fields to the Feedback Object
+1. **Access the Feedback Object**:
+   - In Object Manager, locate the **Feedback** object and click it.
+   - Go to **Fields & Relationships**.
+2. **Create Custom Fields**:
+   - Click **New** to add the following fields:
+     - **Field 1: Feedback Description**
+       - Type: Text Area (Long)
+       - Label: Feedback Description
+       - Description: "Detailed description of the feedback."
+       - Required: Check (to ensure users provide details).
+     - **Field 2: Category**
+       - Type: Picklist
+       - Label: Category
+       - Values: Positive, Negative, Suggestion
+       - Description: "Classifies the type of feedback."
+       - Required: Check.
+     - **Field 3: Submission Date**
+       - Type: Date
+       - Label: Submission Date
+       - Description: "Date when feedback was submitted."
+       - Default Value: TODAY() (to auto-populate current date).
+     - **Field 4: Status**
+       - Type: Picklist
+       - Label: Status
+       - Values: New, In Review, Closed
+       - Default Value: New
+       - Description: "Tracks the processing stage of feedback."
+   - Save each field.
+3. **Why This Step?**:
+   - Custom fields enhance the Feedback object by capturing specific data points, making the app more functional and relatable.
+   - The picklist fields (Category, Status) allow for categorization and workflow tracking, while the date field supports time-based reporting.
+
+#### Step 4: Create a Custom Tab for Feedback
+1. **Navigate to Tabs**:
+   - In Setup, use Quick Find to search for **Tabs** and select it.
+   - Click **New** under Custom Object Tabs.
+2. **Configure the Tab**:
+   - **Object**: Select Feedback.
+   - **Tab Style**: Choose an icon (e.g., a speech bubble or star).
+   - **Description**: "Tab to access Feedback records."
+   - Click **Next**, then **Next** again.
+   - **Apply to Profiles**: Ensure it’s visible to **System Administrator** (and other profiles if needed).
+   - Click **Save**.
+3. **Why This Step?**:
+   - The custom tab provides a user-friendly way to access Feedback records directly from the Salesforce navigation bar.
+
+#### Step 5: Create a Lightning App
+1. **Navigate to App Manager**:
+   - In Setup, use Quick Find to search for **App Manager** and select it.
+   - Click **New Lightning App**.
+2. **Configure the App**:
+   - **App Name**: Feedback Management App
+   - **Description**: "An app to manage user feedback with reporting capabilities."
+   - **App Logo**: Choose an icon (e.g., clipboard or thumbs-up).
+   - Click **Next**.
+3. **Add Navigation Items**:
+   - Under **Navigation Items**, add:
+     - Standard Objects: Contacts, Accounts (to link feedback to customers).
+     - Custom Objects: Feedback.
+   - Click **Next**.
+4. **Utility Bar (Optional)**:
+   - Add utilities like **Recent Items** or **Notes** for quick access.
+   - Click **Next**.
+5. **Assign to Profiles**:
+   - Move **System Administrator** (and other relevant profiles) to the Selected list.
+   - Click **Save & Finish**.
+6. **Why This Step?**:
+   - The Lightning App bundles the Feedback object with related standard objects (Contacts, Accounts) into a cohesive workspace.
+   - Assigning profiles ensures only authorized users can access the app.
+
+#### Step 6: Enhance the App with a Lightning Page
+1. **Create a Lightning Record Page**:
+   - In Object Manager, select the **Feedback** object.
+   - Go to **Lightning Record Pages** and click **New**.
+   - Choose **Record Page**, then **Next**.
+   - **Label**: Feedback Record Page
+   - **Object**: Feedback
+   - Click **Next**.
+2. **Customize the Page**:
+   - Use the Lightning App Builder to drag and drop components:
+     - Add a **Tabs** component with tabs for Details, Related, and Activity.
+     - Add a **Record Detail** component to display feedback fields.
+     - Add a **Related Lists** component to show related Contacts or Tasks.
+   - Click **Save**, then **Activate** to make it the default page for the Feedback object.
+3. **Why This Step?**:
+   - A custom Lightning page improves the user experience by organizing data and interactions in a visually appealing way.
+   - It’s exam-relevant as it demonstrates proficiency with Lightning App Builder.
+
+#### Step 7: Create a Report for Feedback Analysis
+1. **Navigate to Reports**:
+   - From the App Launcher (9-dot icon), search for **Reports** and select it.
+   - Click **New Report**.
+2. **Configure the Report**:
+   - **Report Type**: Select Feedback (under Custom Objects).
+   - **Report Format**: Tabular
+   - **Columns**: Add Feedback Name, Feedback Description, Category, Status, Submission Date.
+   - **Filters**: Add a filter like "Status equals New" or "Category equals Suggestion".
+   - **Group By**: Group rows by Category or Status for better analysis.
+   - **Name**: Feedback Summary Report
+   - Click **Save & Run**.
+3. **Add to App**:
+   - From the Reports tab, add the report to the Feedback Management App’s navigation for quick access.
+4. **Why This Step?**:
+   - Reports showcase the “Allow Reports” feature and demonstrate data analysis capabilities, a common exam requirement.
+
+#### Step 8: Test the Application in Desktop View
+1. **Launch the App**:
+   - Click the **App Launcher** (9-dot icon).
+   - Search for **Feedback Management App** and open it.
+2. **Test Functionality**:
+   - Navigate to the **Feedback** tab.
+   - Click **New** to create a feedback record:
+     - Feedback Name: Test Feedback 001
+     - Feedback Description: "Great platform, but needs more customization."
+     - Category: Suggestion
+     - Status: New
+     - Submission Date: Auto-filled (today’s date).
+   - Save the record.
+   - Verify the record appears in the Feedback list view.
+   - Run the **Feedback Summary Report** to ensure data is reflected.
+3. **Why This Step?**:
+   - Testing ensures the app works as expected and helps identify any configuration issues.
+
+#### Step 9: Simulate and Test on Mobile
+1. **Open Chrome Developer Tools**:
+   - Open Google Chrome and navigate to your Salesforce instance.
+   - Right-click on the page and select **Inspect**.
+   - Click the **Toggle Device Toolbar** (📱 icon) to enable mobile view.
+   - Select a device (e.g., iPhone 12 or Galaxy S20) from the device dropdown.
+2. **Access the Feedback App**:
+   - Copy the Salesforce URL from your desktop view.
+   - Paste it into the mobile-simulated tab.
+   - Remove any extra URL parts after `.lightning.force.com` (if present).
+   - Log in if prompted.
+3. **Test Mobile Functionality**:
+   - From the mobile navigation, select the **Feedback** object.
+   - Create a new feedback record (similar to Step 8).
+   - Verify the record saves and displays correctly.
+   - Check the report and ensure it’s accessible in mobile view.
+4. **Why This Step?**:
+   - Mobile testing ensures the app is responsive and functional on smaller screens, a critical aspect for modern applications.
+
+#### Step 10: Document and Prepare for Submission
+1. **Document the Process**:
+   - Create a brief document or presentation summarizing:
+     - Objective: Build a Feedback Management App.
+     - Steps: Object creation, tab, app, report, and testing.
+     - Screenshots: Feedback object, tab, app, report, and mobile view.
+     - Challenges Faced: Any issues encountered and how you resolved them.
+2. **Prepare for Viva**:
+   - Review the concepts (to be provided when you say “next”).
+   - Practice explaining each step concisely.
+   - Be ready to demonstrate the app live during the exam.
+3. **Why This Step?**:
+   - Documentation is often required in practical exams to demonstrate understanding.
+   - Preparation ensures confidence during viva or live demos.
+
+---
+
+### Enhancements Over the Reference
+- **Improved Object**: The Feedback object is more robust with fields like Category, Status, and Submission Date, making it more practical than the simple Comment object.
+- **Custom Fields**: Added meaningful fields to support real-world use cases (e.g., feedback categorization and tracking).
+- **Lightning Page**: Included a custom Lightning Record Page for a better UI, which wasn’t in the reference.
+- **Reporting**: Added a report for data analysis, enhancing the app’s utility.
+- **Documentation**: Emphasized documentation and viva preparation, critical for exams.
+
+---
+
+### Checklist for Exam Readiness
+- [ ] Log in and switch to Lightning Experience.
+- [ ] Create Feedback custom object with fields (Description, Category, Status, Submission Date).
+- [ ] Create a custom tab for Feedback.
+- [ ] Build the Feedback Management App with Contacts, Accounts, and Feedback.
+- [ ] Customize a Lightning Record Page.
+- [ ] Create a Feedback Summary Report.
+- [ ] Test in desktop and mobile views.
+- [ ] Document the process with screenshots.
+
+---
+
+Please let me know if you want me to:
+- Create a visual diagram of these steps (e.g., flowchart).
+- Provide a sample documentation template.
+- Proceed with “next” to cover related concepts and viva questions.

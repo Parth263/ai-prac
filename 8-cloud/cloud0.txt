@@ -1,0 +1,191 @@
+Here are the step-by-step instructions to perform the practical assignment titled:
+
+"Design and develop custom Application (Mini Project) using Salesforce Cloud":
+
+🔧 Steps to Follow:
+Open Lightning Experience:
+
+Log in to your Salesforce account.
+
+Switch to Lightning Experience interface (if not already selected).
+
+Create a Custom Object:
+
+Click on Setup (⚙️ icon).
+
+Go to Object Manager or use Quick Find to search "Object Manager".
+
+Click Create → Custom Object.
+
+Fill in:
+
+Label: comment
+
+Plural Label: comments
+
+Data Type: Text
+
+Enable the "Allow Reports" checkbox.
+
+Click Save.
+
+Create a Custom Tab:
+
+Go to Setup.
+
+Search Tabs in Quick Find and click Tabs.
+
+Click New Custom Object Tab.
+
+Choose Object: Comment
+
+Choose Tab Style: Pick any icon.
+
+Click Next → Next → Save.
+
+Create a Custom App:
+
+In Quick Find, search App Manager.
+
+Click New Lightning App.
+
+Enter App Name.
+
+Click Next → Next.
+
+Select Items: Add Contacts and Comment.
+
+Click Next.
+
+Assign Profile: Move System Administrator to the selected list.
+
+Click Save and Finish.
+
+Launch the App:
+
+Click the App Launcher (9-dot icon).
+
+Search for and open your newly created Comment Box App.
+
+Mobile Simulation Testing:
+
+Open Google Chrome.
+
+Right-click anywhere on the page → Click Inspect.
+
+Click Toggle Device Toolbar (📱 icon) to simulate a mobile device.
+
+Simulate Salesforce Mobile App:
+
+From the previously opened Salesforce tab, copy the URL.
+
+Paste it into your simulated mobile view tab.
+
+Delete any extra URL parts after .lightning.force.com if necessary.
+
+Use the left navigation bar to find and select the Comment object.
+
+Click New to create a new comment entry.
+
+✅ Conclusion:
+You have now studied and developed a basic custom application using Salesforce Cloud, including object creation, tab and app setup, and mobile testing.
+
+Would you like me to create a checklist or visual diagram of these steps for easier tracking?
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+This Salesforce practical involves several core concepts. Here's a simple explanation of each one:
+
+🔑 Concepts Involved in This Practical (Explained Simply):
+Salesforce Lightning Experience
+This is the modern interface of Salesforce.
+
+It’s where you design and use your custom applications (looks cleaner and more interactive than the classic version).
+
+Custom Object
+Think of this like creating your own table in a database.
+
+In this practical, you create a “Comment” object to store data like text inputs.
+
+It's like saying: “I want to store comments, so I’ll make a special space just for them.”
+
+Fields
+These are like the columns in your table.
+
+For example, a "Comment" object may have a text field where the actual comment is written.
+
+Reports
+Checking “Allow Reports” means you can later generate summaries and analyses (like charts or tables) based on the data you collect.
+
+Custom Tabs
+A tab is like a menu item.
+
+Creating a tab for your "Comment" object makes it easy to access from the Salesforce interface.
+
+App Manager & Lightning App
+You are building a custom app (like a mini software system inside Salesforce).
+
+The App Manager lets you define what parts (like Contacts or Comments) are included in this app and who can use it.
+
+Profiles and Permissions
+You choose which user roles can use your app.
+
+In this case, the System Administrator is given access.
+
+App Launcher
+Like a Start Menu, it helps you find and open any app you've created.
+
+Mobile Simulation
+You're testing how your app would look and behave on a phone.
+
+You use Chrome Developer Tools to simulate a mobile device.
+
+🎯 Summary:
+You're learning how to design, build, and test a simple app on Salesforce. You go through creating a custom object, making it accessible via a tab, bundling it into a usable app, and testing it on a desktop and mobile interface.
+
+Would you like these concepts turned into flashcards or a mind map for quick revision?
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+🧑‍🏫 Expected Questions with Answers
+1. Q: What is Salesforce?
+A: Salesforce is a cloud-based Customer Relationship Management (CRM) platform that helps businesses manage sales, customer service, marketing, and custom applications.
+
+2. Q: What is a Custom Object in Salesforce?
+A: A Custom Object is like a table in a database that you create to store data specific to your app. In this practical, the “Comment” object is a custom object to store user comments.
+
+3. Q: Why do we create custom tabs in Salesforce?
+A: Custom tabs allow users to easily access the custom object data (like Comment records) from the Salesforce interface, just like clicking a tab in a web application.
+
+4. Q: What is the purpose of creating a Lightning App?
+A: A Lightning App combines various objects (standard and custom) into one interface, making it easier to access related data. It's like packaging everything into one convenient workspace.
+
+5. Q: Why do we assign the app to a profile like System Administrator?
+A: Profiles control what users can see and do. Assigning the app to the System Administrator profile ensures that users with that role have access to all the features of the app.
+
+6. Q: What is the use of the “Allow Reports” checkbox when creating an object?
+A: It enables users to generate reports based on the data from that object, which is useful for analysis and decision-making.
+
+7. Q: How do you simulate the Salesforce app on mobile without using a physical phone?
+A: We use Google Chrome Developer Tools, enable mobile device view (Toggle Device Toolbar), and access Salesforce as if it's on a phone. This helps test the mobile-friendliness of the app.
+
+8. Q: What is the App Launcher used for?
+A: The App Launcher is like a menu where you can find and open any app you’ve created or have access to within Salesforce.
+
+9. Q: What are standard vs custom objects?
+A: Standard objects (like Contacts, Accounts) are provided by Salesforce by default. Custom objects (like Comment) are created by the user for specific needs.
+
+10. Q: Can you explain the overall flow of this practical?
+A:
+Yes:
+
+I created a custom object called Comment.
+
+Then I created a custom tab to access it.
+
+After that, I created a Lightning App to bundle my custom object and Contacts.
+
+I assigned it to the System Administrator profile.
+
+Finally, I tested it using both the normal desktop view and the mobile simulation in Chrome.
