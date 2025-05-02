@@ -48,36 +48,12 @@
 - Needs a good heuristic for speed.
 - May need adaptation for dynamic environments.
 
----
 
-This covers the core theory for A* in a concise, exam-friendly format. Let me know "next" when you're ready for Answer 2 (the code).
-
-1 2 3
-4 _ 5
-6 7 8
-
-1 2 3
-4 5 _
-7 8 _
-Path:
-
-Move blank right: [[1, 2, 3], [0, 4, 5], [6, 7, 8]] → [[1, 2, 3], [4, 0, 5], [6, 7, 8]].
-Move blank right: [[1, 2, 3], [4, 0, 5], [6, 7, 8]] → [[1, 2, 3], [4, 5, 0], [7, 8, 0]] (goal).
-Expected Output
-Running python3 astar_8puzzle.py in VS Code terminal:
-
-text
-
-Copy
-Solution steps:
-1 2 3
-_ 4 5
-6 7 8
-
-1 2 3
-4 _ 5
-6 7 8
-
-1 2 3
-4 5 _
-7 8 _
+A tuple is an immutable, hashable sequence used to represent the 8-puzzle state.
+The to_tuple function converts a 3x3 list to a tuple of tuples (e.g., ((1, 2, 3), (0, 4, 5), (6, 7, 8))).
+Tuples are used because:
+They can be keys in parent and cost_so_far dictionaries.
+They can be added to the visited set.
+They ensure states are immutable for reliable comparisons.
+This enables A* to track and compare puzzle states efficiently.
+Let me know if you need clarification or want to move to the next practical for your AI exam!

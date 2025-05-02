@@ -1,0 +1,253 @@
+"Creating an Application in Salesforce.com using Apex Programming Language"
+
+✅ Objective:
+To create an account in Salesforce using the Apex programming language and Visualforce.
+
+🔧 Steps to Perform:
+1. Create a Salesforce Developer Account
+Go to https://developer.salesforce.com
+
+Click on “Sign Up” to create a new developer account.
+
+Fill in your details and verify your email.
+
+Log in to your new Salesforce developer account.
+
+2. Open Developer Console
+After logging in, click on your profile icon in the top right corner.
+
+Click on "Developer Console" to open it.
+
+3. Create Apex Class
+In Developer Console:
+
+Click on File > New > Apex Class
+
+Name the class as CreateAccount
+
+Paste the following code:
+
+
+public class CreateAccount {
+    public String name {get; set;}
+    public String phoneNumber {get; set;}
+    public String selectedname {get; set;}
+    public String websiteURL {get; set;}
+    public List<Selectoption> lstnamesel {get; set;}
+
+    public CreateAccount(ApexPages.StandardController controller) {
+        lstnamesel = new List<selectoption>();
+        lstnamesel.add(new selectOption('','- None -'));
+        lstnamesel.add(new selectOption('IT','IT'));
+        lstnamesel.add(new selectOption('MECH','MECH'));
+        lstnamesel.add(new selectOption('CHEM','CHEM'));
+        lstnamesel.add(new selectOption('PHARMA','PHARMA'));
+    }
+
+    public PageReference createAccount() {
+        System.debug('test create');
+        if(!String.isEmpty(name)) {
+            Account accountRecord = new Account(
+                Name = name,
+                Phone = phoneNumber,
+                Industry = selectedname,
+                Website = websiteURL
+            );
+            INSERT accountRecord;
+            PageReference pg = new PageReference('/'+accountRecord.Id);
+            pg.setRedirect(true);
+            return pg;
+        } else {
+            ApexPages.addmessage(new ApexPages.message(
+                ApexPages.severity.CONFIRM,'Please enter Account Name'));
+        }
+        return NULL;
+    }
+
+    public PageReference cancelAccount() {
+        PageReference pg = new PageReference('/'+Schema.SObjectType.Account.getKeyPrefix()+'/o');
+        return pg;
+    }
+}
+
+4. Create Visualforce Page
+In Developer Console:
+
+Click on File > New > Visualforce Page
+
+Name it CreateAccount
+
+Paste the following code:
+<apex:page standardController="Account" extensions="CreateAccount">
+    <apex:form id="apexFrom">
+        <apex:pageBlock title="Create Account:" id="pageBlockId">
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+            <apex:pageBlockSection columns="2">
+                <apex:inputText value="{!name}" label="Account Name" required="true"/>
+                <apex:inputText value="{!phoneNumber}" label="Phone"/>
+                <apex:selectList size="1" value="{!selectedname}" label="Industry">
+                    <apex:selectOptions value="{!lstnamesel}"/>
+                </apex:selectList>
+                <apex:inputText value="{!websiteURL}" label="Website"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons>
+                <apex:commandButton action="{!createAccount}" value="Save"/>
+                <apex:commandButton action="{!cancelAccount}" value="Cancel"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+
+        <!-- ACTION FUNCTIONS -->
+        <apex:actionFunction name="createFunction" action="{!createAccount}"/>
+        <apex:actionFunction name="cancelFunction" action="{!cancelAccount}"/>
+    </apex:form>
+</apex:page>
+5. Preview the Page
+In Salesforce Setup, go to Tabs section.
+
+Ensure that the Visualforce page tab is visible or accessible.
+
+Preview the CreateAccount page.
+
+Enter the account details (name, phone, industry, website) and click Save.
+
+✅ Conclusion:
+You have successfully created and deployed an application in Salesforce using Apex and Visualforce to create a new account.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+This Salesforce practical covers several important Apex and Visualforce concepts. Here's a simple breakdown of the key concepts involved:
+
+🔑 1. Apex Programming Language
+What it is: It's like Java but made specially for Salesforce.
+
+Why it’s used: To write backend logic like creating records, updating data, or performing actions when buttons are clicked.
+
+🔑 2. Visualforce Pages
+What it is: It’s a way to create custom web pages inside Salesforce using HTML-like syntax.
+
+Why it’s used: To design the user interface (UI) where users can enter data (like account name, phone, etc.).
+
+🔑 3. Apex Class
+What it is: A container for code in Apex, like a blueprint.
+
+In this practical: The class CreateAccount handles the logic to:
+
+Collect data from the user.
+
+Create a new Account in Salesforce.
+
+Redirect to the created account’s page.
+
+🔑 4. Standard Controller
+What it is: A built-in Salesforce controller that gives basic functionality like saving or canceling a record.
+
+In this practical: We use the standard controller for the Account object.
+
+🔑 5. Extensions
+What it is: Custom logic added to a standard controller using an Apex class.
+
+In this practical: The CreateAccount class is an extension to add custom behavior (like choosing industry, validating input).
+
+🔑 6. Visualforce Components
+Some components used:
+
+<apex:inputText> – Input field (for name, phone, website).
+
+<apex:selectList> – Dropdown list (for industry).
+
+<apex:commandButton> – Buttons (Save and Cancel).
+
+<apex:pageMessages> – To display messages or errors.
+
+🔑 7. SelectOption
+What it is: A special object in Apex used to create dropdown list items.
+
+Example: IT, MECH, CHEM, etc., are SelectOptions shown in the industry dropdown.
+
+🔑 8. PageReference
+What it is: A way to control page navigation in Salesforce.
+
+In this practical:
+
+After creating an account, it redirects to the account's detail page.
+
+Or redirects back to the accounts list on cancel.
+
+🔑 9. Data Insertion
+The Apex code uses INSERT accountRecord; to save the new account data into Salesforce’s database.
+
+In short:
+Visualforce handles what users see and do.
+
+Apex handles what happens in the background.
+
+Together, they let you build a small app to create Salesforce accounts.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+🔹1. What is Apex in Salesforce?
+Answer:
+Apex is a programming language developed by Salesforce that allows developers to write custom logic, like creating records, sending emails, or validating data. It’s similar to Java and is used mainly for backend processing in Salesforce.
+
+🔹2. What is a Visualforce page?
+Answer:
+Visualforce is a markup language in Salesforce that lets us design custom user interfaces. It uses tags like HTML and allows interaction with Apex classes using controllers.
+
+🔹3. What is a standard controller?
+Answer:
+A standard controller is a built-in Salesforce controller that gives default functionality like viewing, editing, saving, or deleting records. In our practical, we used the standard controller for the Account object.
+
+🔹4. What is a controller extension? Why do we use it?
+Answer:
+A controller extension is an Apex class that adds custom logic to a standard controller. We use it when we need to go beyond the default actions, like adding dropdown options or validating input.
+
+🔹5. How do you create a new account record in your code?
+Answer:
+We created a new Account object in Apex and used the INSERT statement to save it:
+
+Account accountRecord = new Account(Name = name, Phone = phoneNumber, ...);
+INSERT accountRecord;
+
+🔹6. What does PageReference do in your class?
+Answer:
+PageReference is used to control navigation between pages. In our case, we redirected the user to the new account’s detail page after saving, or to the list view when cancelled.
+
+🔹7. What is SelectOption used for?
+Answer:
+SelectOption is used to create options in a dropdown menu (<apex:selectList>). We used it to show a list of industries like IT, MECH, etc.
+
+🔹8. Why do we use <apex:pageMessages> in your Visualforce page?
+Answer:
+It’s used to display messages like errors or confirmations to the user. For example, if the account name is missing, a message is shown using ApexPages.addMessage().
+
+🔹9. What is the purpose of the command buttons in your page?
+Answer:
+
+Save Button: Calls the createAccount method to insert the data.
+
+Cancel Button: Calls the cancelAccount method to go back to the list.
+
+🔹10. What is the difference between Apex and Visualforce?
+Answer:
+
+Apex handles the backend logic (what happens in the background).
+
+Visualforce handles the frontend UI (what the user sees and interacts with).
+
+🔹11. What are Governor Limits in Apex? (Bonus if asked)
+Answer:
+Governor Limits are limits set by Salesforce to ensure code doesn’t consume too many resources. For example, we can only do a limited number of SOQL queries or DML operations in one execution.
+
+🔹12. Can you explain the flow of your application?
+Answer:
+
+User opens the Visualforce page.
+
+They fill in account details and click Save.
+
+Apex class validates and inserts the record.
+
+The user is redirected to the new account’s detail page.

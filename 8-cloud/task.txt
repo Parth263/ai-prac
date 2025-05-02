@@ -1,205 +1,157 @@
-I’ll guide you step-by-step to design and develop a simple custom application in Salesforce Cloud using the Salesforce Lightning Platform. This application will be a basic **"Task Manager"** app to help users track tasks with fields like Task Name, Due Date, Status, and Priority. It will use Salesforce’s low-code tools (point-and-click) to keep it beginner-friendly, with minimal coding. The app will include a custom object, tabs, a Lightning page, and basic automation.
+I’ll simplify the Task Manager app to make it even easier for beginners, focusing on the absolute basics using Salesforce’s point-and-click tools. The simplified app will:
+- Track tasks with just **Task Name** (text) and **Status** (picklist) fields.
+- Include a custom object and a tab.
+- Skip automation, custom home pages, and advanced security for now.
+- Be built in a Salesforce Developer Edition org.
+
+This version minimizes steps while still creating a functional app. Below is a step-by-step guide.
 
 ---
 
-### Step-by-Step Guide to Design and Develop a Task Manager App in Salesforce
+### Simplified Step-by-Step Guide to Build a Task Manager App in Salesforce
 
-#### Step 1: Understand the Requirements
-Before building, let’s define the app’s purpose:
-- **App Name**: Task Manager
-- **Functionality**:
-  - Store tasks with fields: Task Name (text), Due Date (date), Status (picklist), Priority (picklist).
-  - Display tasks in a tab.
-  - Create a custom Lightning page for a user-friendly interface.
-  - Add basic automation (e.g., notify when a task is overdue).
-- **Target Users**: Any Salesforce user (e.g., employees tracking their tasks).
-- **Environment**: Salesforce Lightning (we’ll use a free Developer Edition for practice).
-
-You’ll need a Salesforce account. If you don’t have one, sign up for a free **Salesforce Developer Edition** at [developer.salesforce.com](https://developer.salesforce.com/signup).
-
----
-
-#### Step 2: Set Up Your Salesforce Environment
-1. **Log In or Sign Up**:
-   - Go to [developer.salesforce.com](https://developer.salesforce.com/signup) and create a free Developer Edition account if you don’t have one.
-   - Log in to your Salesforce org (e.g., `https://your-org.my.salesforce.com`).
-2. **Navigate to Setup**:
+#### Step 1: Set Up Your Salesforce Environment
+1. **Get a Salesforce Account**:
+   - If you don’t have one, sign up for a free **Salesforce Developer Edition** at [developer.salesforce.com](https://developer.salesforce.com/signup).
+   - Log in to your Salesforce org.
+2. **Access Setup**:
    - Click the **Gear Icon** in the top-right corner and select **Setup**.
 
 ---
 
-#### Step 3: Create a Custom Object for Tasks
-A custom object will store task data, similar to a database table.
+#### Step 2: Create a Custom Object for Tasks
+A custom object will store task data.
 
 1. **Go to Object Manager**:
    - In Setup, search for **Object Manager** in the Quick Find box and click it.
-2. **Create a New Custom Object**:
+2. **Create a Custom Object**:
    - Click **Create** > **Custom Object**.
-   - Fill in the details:
+   - Fill in:
      - **Label**: Task
      - **Plural Label**: Tasks
      - **Object Name**: Task (auto-filled)
-     - **Description**: Stores task details for the Task Manager app.
-     - Check **Allow Reports**, **Allow Activities**, and **Track Field History**.
-     - Select **Launch New Custom Tab Wizard after saving** (to create a tab later).
+     - **Description**: A simple object to track tasks.
+     - Check **Launch New Custom Tab Wizard after saving**.
    - Click **Save**.
-3. **Define Custom Fields**:
-   - After saving, you’re taken to the Task object’s details page. Under **Fields & Relationships**, click **New** to add fields:
-     - **Task Name**:
-       - Type: Text
-       - Label: Task Name
-       - Length: 80
-       - Required: Check
-     - **Due Date**:
-       - Type: Date
-       - Label: Due Date
-       - Required: Optional
-     - **Status**:
-       - Type: Picklist
-       - Label: Status
-       - Values: Not Started, In Progress, Completed
-       - Default: Not Started
-     - **Priority**:
-       - Type: Picklist
-       - Label: Priority
-       - Values: High, Medium, Low
-       - Default: Medium
-   - For each field, follow the wizard, click **Next**, and **Save**.
+3. **Add Custom Fields**:
+   - After saving, you’re on the Task object’s details page. Under **Fields & Relationships**, click **New** to add:
+
+Step-by-Step: Creating Custom Fields Using the Interface in the Screenshot
+You’re currently in the New Custom Field wizard, at Step 1: Choose the Field Type. Let’s create the fields for your Task Manager app.
+
+1. Create the "Task Name" Field (Text)
+This field will store the name of the task as a text value.
+
+Step 1: Choose the Field Type (Current Screen):
+In the screenshot, under Data Type, you see options like "Auto Number," "Formula," "Roll-Up Summary," etc.
+Scroll down (if needed) to find Text.
+Select the radio button next to Text.
+Click the Next button on the top right (as shown in the screenshot).
+Step 2: Enter the Details:
+Label: Enter Task Name (this is the display name for the field).
+Length: Set to 80 (this defines the maximum number of characters allowed).
+Required: Check the box to make this field mandatory (so users must enter a task name).
+Leave other fields (like "Description" or "Default Value") blank for simplicity.
+Click Next.
+Step 3: Establish Field-Level Security:
+Choose which profiles can see or edit this field. For simplicity, select Visible for all profiles (e.g., System Administrator).
+Click Next.
+Step 4: Add to Page Layouts:
+Choose where this field appears on the Task object’s page layout. For now, accept the default (it will be added to the layout automatically).
+Click Save.
+You’ve now created the Task Name field! You’ll return to the Task object’s Fields & Relationships page.
+
+2. Create the "Status" Field (Picklist)
+This field will let users select the task’s status (Not Started or Completed) from a dropdown.
+
+Start Again from Fields & Relationships:
+On the Task object’s details page, under Fields & Relationships, click New to create another field. You’ll be back at the screen in the screenshot.
+Step 1: Choose the Field Type:
+In the Data Type list, scroll to find Picklist.
+Select the radio button next to Picklist.
+Click Next.
+Step 2: Enter the Details:
+Label: Enter Status.
+Values: Choose Enter values, with each value separated by a new line.
+In the text box, enter:
+text
+Not Started
+Completed
+
+Default Value: Select Not Started from the dropdown (so new tasks default to this status).
+Leave other options (like "Sort values alphabetically") unchecked for simplicity.
+Click Next.
+Step 3: Establish Field-Level Security:
+Again, make the field Visible for all profiles (e.g., System Administrator).
+Click Next.
+Step 4: Add to Page Layouts:
+Accept the default to add the field to the page layout.
+Click Save.
+
+
 
 ---
 
-#### Step 4: Create a Custom Tab
-A tab makes the Task object accessible in the Salesforce UI.
+#### Step 3: Create a Custom Tab
+A tab lets users access the Task object.
 
-1. **Continue from Object Creation** (if you selected the tab wizard):
+1. **Continue from Object Creation** (tab wizard opens automatically部分
+
    - **Tab Style**: Choose an icon (e.g., Checklist).
    - **Label**: Tasks
-   - Click **Next**, then **Next** (accept default profiles for visibility).
-   - Click **Save**.
-2. **Manually Create a Tab** (if you didn’t select the wizard):
-   - In Setup, search for **Tabs** in Quick Find.
-   - Under **Custom Object Tabs**, click **New**.
-   - Select **Task** as the object, choose a style, and follow the wizard to save.
+   - Click **Next**, **Next** (accept default profiles), then **Save**.
 
 ---
 
-#### Step 5: Create the Custom App
-Now, group the Task object and tab into a custom app.
+#### Step 4: Create the Custom App
+Group the Task object into a simple app.
 
 1. **Go to App Manager**:
    - In Setup, search for **App Manager** in Quick Find and click it.
 2. **Create a New Lightning App**:
    - Click **New Lightning App**.
-   - Fill in the details:
+   - Fill in:
      - **App Name**: Task Manager
-     - **Description**: A simple app to manage tasks.
-     - **Logo**: Upload a logo (optional, or use the default).
+     - **Description**: A basic app to manage tasks.
+     - **Logo**: Use default.
      - Click **Next**.
-   - **Customize Navigation**:
-     - Add the **Tasks** tab to **Selected Items**.
-     - Optionally, add standard tabs like **Home** or **Reports**.
+   - **Navigation**:
+     - Add **Tasks** to **Selected Items**.
      - Click **Next**.
-   - **Assign to Profiles**:
-     - Select profiles (e.g., System Administrator) to make the app visible.
+   - **Profiles**:
+     - Select **System Administrator** profile.
      - Click **Save & Finish**.
 
 ---
 
-#### Step 6: Customize the Home Page with Lightning App Builder
-Create a custom Home page to display tasks and dashboards.
-
-1. **Go to Lightning App Builder**:
-   - In Setup, search for **Lightning App Builder** in Quick Find and click it.
-   - Click **New** > **Home Page** > **Next**.
-   - **Label**: Task Manager Home
-   - Click **Next** > Choose **Standard Home** template > **Finish**.
-2. **Design the Page**:
-   - In the drag-and-drop interface, add components:
-     - Drag **List View** to the page.
-     - Configure it to show the **Tasks** object with the **All** list view.
-     - Drag **Recent Items** to show recently viewed tasks.
-   - Click **Save** > **Activate** > **Set as App Default** for the Task Manager app.
-   - Click **Save** and exit.
-
----
-
-#### Step 7: Add Basic Automation with Flow
-Let’s create a simple automation to notify users if a task is overdue.
-
-1. **Go to Flow Builder**:
-   - In Setup, search for **Flows** in Quick Find and click it.
-   - Click **New Flow** > **Record-Triggered Flow** > **Create**.
-2. **Configure the Flow**:
-   - **Object**: Task
-   - **Trigger**: A record is created or updated.
-   - **Condition**: Due Date is less than TODAY and Status is not Completed.
-   - Click **Done**.
-3. **Add an Action**:
-   - Click **+** to add an element > Select **Action**.
-   - Choose **Send Email** (or **Create a Task** for simplicity).
-   - Configure:
-     - **Label**: Overdue Task Notification
-     - **Recipient**: Task Owner (use the OwnerId field).
-     - **Subject**: Task Overdue: `{!Task.Task_Name__c}`
-     - **Body**: Your task `{!Task.Task_Name__c}` is overdue. Due Date: `{!Task.Due_Date__c}`.
-   - Click **Done**.
-4. **Save and Activate**:
-   - Click **Save**, name the flow **Overdue Task Alert**.
-   - Click **Activate**.
-
----
-
-#### Step 8: Test the Application
+#### Step 5: Test the Application
 1. **Access the App**:
    - Click the **App Launcher** (waffle icon) in the top-left corner.
    - Search for **Task Manager** and select it.
 2. **Create a Task**:
    - Click the **Tasks** tab > **New**.
-   - Enter details (e.g., Task Name: "Prepare Report", Due Date: Yesterday, Status: In Progress, Priority: High).
-   - Save and verify the overdue notification triggers.
-3. **Check the Home Page**:
-   - Navigate to the Home tab and ensure the task list view displays correctly.
+   - Enter details (e.g., Task Name: "Send Email", Status: Not Started).
+   - Click **Save**.
+3. **View Tasks**:
+   - In the Tasks tab, ensure your task appears in the list view.
 
 ---
 
-#### Step 9: Secure the App
-Ensure only authorized users access the app.
-
-1. **Set Object Permissions**:
-   - In Setup, go to **Profiles** > Select a profile (e.g., System Administrator).
-   - Under **Object Settings**, find **Tasks** and ensure **Read**, **Create**, **Edit**, and **Delete** permissions are enabled.
-2. **Field-Level Security**:
-   - In the Task object’s **Fields & Relationships**, click each field and verify visibility for relevant profiles.
-3. **App Visibility**:
-   - In App Manager, edit the Task Manager app and confirm it’s assigned to the correct profiles.
-
----
-
-#### Step 10: Deploy and Maintain
-- **Test in Sandbox**: If you have a sandbox, replicate the app there first to test changes.
-- **Gather Feedback**: Share the app with users and collect feedback on usability.
-- **Iterate**: Use Lightning App Builder to tweak the UI or Flow Builder to add more automation (e.g., escalate high-priority tasks).
-- **Monitor**: Check reports or dashboards (optional) to track task completion rates.
-
----
-
-### Artifact: Task Manager App Configuration Summary
+### Artifact: Simplified Task Manager App Configuration
 
 
-# Task Manager App Configuration
+# Simplified Task Manager App Configuration
 
 ## Overview
-A simple Salesforce Lightning app to manage tasks with a custom object, tab, Lightning page, and automation.
+A beginner-friendly Salesforce Lightning app to track tasks with minimal features.
 
 ## Custom Object: Task
 - **Label**: Task
 - **Plural Label**: Tasks
 - **Fields**:
   - **Task Name**: Text (80), Required
-  - **Due Date**: Date
-  - **Status**: Picklist (Not Started, In Progress, Completed), Default: Not Started
-  - **Priority**: Picklist (High, Medium, Low), Default: Medium
-- **Settings**: Allow Reports, Allow Activities, Track Field History
+  - **Status**: Picklist (Not Started, Completed), Default: Not Started
+- **Settings**: Tab wizard enabled
 
 ## Custom Tab
 - **Name**: Tasks
@@ -208,44 +160,63 @@ A simple Salesforce Lightning app to manage tasks with a custom object, tab, Lig
 
 ## Custom App
 - **Name**: Task Manager
-- **Tabs**: Home, Tasks
+- **Tabs**: Tasks
 - **Profiles**: System Administrator
-- **Logo**: Default (optional custom upload)
-
-## Lightning Home Page
-- **Name**: Task Manager Home
-- **Components**:
-  - List View: Tasks (All view)
-  - Recent Items: Tasks
-- **Assigned**: App Default for Task Manager
-
-## Automation
-- **Flow**: Overdue Task Alert
-  - **Type**: Record-Triggered Flow
-  - **Object**: Task
-  - **Trigger**: Record created or updated
-  - **Condition**: Due Date < TODAY, Status != Completed
-  - **Action**: Send email to Task Owner
-    - Subject: Task Overdue: `{!Task.Task_Name__c}`
-    - Body: Your task `{!Task.Task_Name__c}` is overdue. Due Date: `{!Task.Due_Date__c}`
-
-## Security
-- **Object Permissions**: Read, Create, Edit, Delete for System Administrator
-- **Field-Level Security**: All fields visible to System Administrator
-- **App Visibility**: Assigned to System Administrator profile
+- **Logo**: Default
 
 ## Next Steps
-- Test in sandbox.
-- Add reports/dashboards for task analytics.
-- Enhance automation (e.g., escalate high-priority tasks).
+- Add more fields (e.g., Due Date) later.
+- Explore Trailhead for learning ([trailhead.salesforce.com](https://trailhead.salesforce.com)).
+- Share with users for feedback.
 
 
 ---
 
-### Tips for Success
-- **Explore Trailhead**: Salesforce’s free learning platform ([trailhead.salesforce.com](https://trailhead.salesforce.com)) has modules like “Lightning App Builder” and “Flow Builder” to deepen your skills.
-- **Use AppExchange**: If you want pre-built components, check Salesforce AppExchange for task management add-ons.
-- **Keep It Simple**: Avoid overcomplicating the app. Start with core features and iterate based on user feedback.
-- **Consult Experts**: For complex needs, consider a Salesforce partner like TransFunnel or Webkul for professional support.[](https://www.transfunnel.com/blog/create-custom-application-in-salesforce)[](https://webkul.com/salesforce-custom-app-development/)
 
-This Task Manager app is a great starting point. You can enhance it later with features like task assignment, reporting, or mobile support. Let me know if you need help with any step or want to add specific features!
+
+
+
+
+
+1. Q: What is Salesforce?
+A: Salesforce is a cloud-based Customer Relationship Management (CRM) platform that helps businesses manage sales, customer service, marketing, and custom applications.
+
+2. Q: What is a Custom Object in Salesforce?
+A: A Custom Object is like a table in a database that you create to store data specific to your app. In this practical, the “Comment” object is a custom object to store user comments.
+
+3. Q: Why do we create custom tabs in Salesforce?
+A: Custom tabs allow users to easily access the custom object data (like Comment records) from the Salesforce interface, just like clicking a tab in a web application.
+
+4. Q: What is the purpose of creating a Lightning App?
+A: A Lightning App combines various objects (standard and custom) into one interface, making it easier to access related data. It's like packaging everything into one convenient workspace.
+
+5. Q: Why do we assign the app to a profile like System Administrator?
+A: Profiles control what users can see and do. Assigning the app to the System Administrator profile ensures that users with that role have access to all the features of the app.
+
+6. Q: What is the use of the “Allow Reports” checkbox when creating an object?
+A: It enables users to generate reports based on the data from that object, which is useful for analysis and decision-making.
+
+7. Q: How do you simulate the Salesforce app on mobile without using a physical phone?
+A: We use Google Chrome Developer Tools, enable mobile device view (Toggle Device Toolbar), and access Salesforce as if it's on a phone. This helps test the mobile-friendliness of the app.
+
+8. Q: What is the App Launcher used for?
+A: The App Launcher is like a menu where you can find and open any app you’ve created or have access to within Salesforce.
+
+9. Q: What are standard vs custom objects?
+A: Standard objects (like Contacts, Accounts) are provided by Salesforce by default. Custom objects (like Comment) are created by the user for specific needs.
+
+10. Q: Can you explain the overall flow of this practical?
+A:
+Yes:
+
+I created a custom object called Comment.
+
+Then I created a custom tab to access it.
+
+After that, I created a Lightning App to bundle my custom object and Contacts.
+
+I assigned it to the System Administrator profile.
+
+Finally, I tested it using both the normal desktop view and the mobile simulation in Chrome.
+
+

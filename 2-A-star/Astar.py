@@ -98,3 +98,98 @@ if __name__ == "__main__":
             print()
     else:
         print("No solution found.")
+
+
+
+
+
+# Great! Let's begin with a **step-by-step explanation** of the A\* algorithm code for solving the **8-puzzle problem**.
+
+# ---
+
+# ## 🔹 Step-by-Step Code Explanation (Part 1)
+
+# ### ✅ Part 1: Setup and Helper Functions
+
+# ---
+
+# ### 1. **Goal State Definition**
+
+# ```python
+# goal_state = [
+#     [1, 2, 3],
+#     [4, 5, 6],
+#     [7, 8, 0]
+# ]
+# ```
+
+# * This represents the target configuration for the 8-puzzle.
+# * The `0` represents the empty tile.
+
+# ---
+
+# ### 2. **`to_tuple(state)`**
+
+# ```python
+# def to_tuple(state):
+#     return tuple(tuple(row) for row in state)
+# ```
+
+# * Converts the 2D list (matrix) to a tuple of tuples.
+# * Why? So it can be **used in sets/dictionaries** (tuples are hashable, lists are not).
+
+# ---
+
+# ### 3. **`find_pos(state, num)`**
+
+# ```python
+# def find_pos(state, num): 
+#     for i in range(3):
+#         for j in range(3):
+#             if state[i][j] == num:
+#                 return i, j
+# ```
+
+# * Finds and returns the **(row, col)** position of a number (`num`) in the state.
+
+# ---
+
+# ### 4. **`manhattan_distance(state)`**
+
+# ```python
+# def manhattan_distance(state):
+#     distance = 0
+#     for i in range(3):
+#         for j in range(3):
+#             val = state[i][j]
+#             if val != 0:
+#                 goal_i, goal_j = find_pos(goal_state, val)
+#                 distance += abs(goal_i - i) + abs(goal_j - j)
+#     return distance
+# ```
+
+# * **Heuristic function** for A\*.
+# * Calculates total **Manhattan distance**:
+
+#   * For each tile (excluding 0), compute how far it is from its position in the goal state using:
+
+#     ```
+#     |current_row - goal_row| + |current_col - goal_col|
+#     ```
+# * Lower values = closer to the goal.
+
+# ---
+
+# ### 5. **`get_neighbors(state)`**
+
+# ```python
+# def get_neighbors(state):
+#     ...
+# ```
+
+# * Generates **valid moves** by sliding the blank tile (0) in all possible directions (up, down, left, right).
+# * Returns all resulting new states.
+
+# ---
+
+# Let me know when you're ready to proceed with the **A* algorithm part*\* and key concepts behind it. Just say **next**.
